@@ -1,6 +1,5 @@
 CXX := c++
-SAN :=
-CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98 $(SAN)
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g $(SAN)
 LDFLAGS = -g $(SAN)
 
 SRC := megaphone.cpp
