@@ -18,11 +18,11 @@ mkdir_obj :
 	@mkdir -p obj
 
 $(NAME) : $(OBJ)
-	@$(CXX) $(OBJ) -o $(NAME) $(LDFLAGS)
+	$(CXX) $(OBJ) -o $(NAME) $(LDFLAGS)
 
 
 obj/%.o : src/%.cpp
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean :
 	@rm -rf obj

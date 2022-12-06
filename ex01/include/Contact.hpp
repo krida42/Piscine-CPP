@@ -13,6 +13,7 @@ public:
     ~Contact(void);
 
     void    show(void) const;
+	void	printColumn(std::string const str) const;
 
 
 private:
