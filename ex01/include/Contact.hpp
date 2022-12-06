@@ -12,9 +12,8 @@ public:
             std::string darkestSecret);
     ~Contact(void);
 
-    void    show(void) const;
-	void	printColumn(std::string const str) const;
-
+    void    displayPreview(void) const;
+	void	displayInformations(void) const;
 
 private:
     std::string const firstName;
@@ -22,6 +21,9 @@ private:
     std::string const nickName;
     std::string const phoneNumber;
     std::string const darkestSecret;
+
+
+	void	printColumn(std::string const str) const;
 };
 
 #endif

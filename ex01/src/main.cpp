@@ -5,7 +5,9 @@ int main(void)
 
     Contact contact("StanLeglagandodo", "LeVent", "Wax", "06 78 94 12 54", "Que je suis un groslard");
     std::cout << "\n";
-    contact.show();
+    contact.displayPreview();
+	std::cout << std::endl;
+	contact.displayInformations();
     std::cout << "\n";
     return 0;
 }
