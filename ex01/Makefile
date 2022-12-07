@@ -3,7 +3,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -Iinclude -g $(SAN)
 LDFLAGS = -g $(SAN)
 SHELL := /bin/bash
 
-SRC := main.cpp Contact.cpp
+SRC := main.cpp Contact.cpp PhoneBook.cpp
 OBJ := $(SRC:.cpp=.o)
 
 SRC := $(addprefix src/, $(SRC))

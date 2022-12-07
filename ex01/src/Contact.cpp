@@ -1,14 +1,20 @@
 #include "Contact.hpp"
 
-Contact::Contact(std::string firstName, std::string lastName, std::string nickName,
-                std::string phoneNumber, std::string darkestSecret) : 
-                firstName(firstName), lastName(lastName), nickName(nickName),
-                phoneNumber(phoneNumber), darkestSecret(darkestSecret) {
+Contact::Contact(void) {
     std::cout << "Contact Constructor called ! " << std::endl;
 }
 
 Contact::~Contact(void) {
     std::cout << "Contact Destructor called ! " << std::endl;
+}
+
+void	Contact::setContact(std::string firstName, std::string lastName, std::string nickName,
+            				std::string phoneNumber, std::string darkestSecret) {
+	this->firstName = firstName;
+	this->lastName = lastName;
+	this->nickName = nickName;
+	this->phoneNumber = phoneNumber;
+	this->darkestSecret = darkestSecret;
 }
 
 void	Contact::printColumn(std::string const str) const {
