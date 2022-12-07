@@ -1,7 +1,14 @@
 #include "Contact.hpp"
 
 Contact::Contact(void) {
-    std::cout << "Contact Constructor called ! " << std::endl;
+    std::cout << "Contact Default Constructor called ! " << std::endl;
+}
+
+Contact::Contact(std::string firstName, std::string lastName, std::string nickName, std::string phoneNumber, std::string darkestSecret) : 
+				_firstName(firstName), _lastName(lastName), _nickName(nickName),
+				_phoneNumber(phoneNumber), _darkestSecret(darkestSecret)
+				{
+    std::cout << "Contact Param Constructor called ! " << std::endl;
 }
 
 Contact::~Contact(void) {
@@ -10,14 +17,14 @@ Contact::~Contact(void) {
 
 void	Contact::setContact(std::string firstName, std::string lastName, std::string nickName,
             				std::string phoneNumber, std::string darkestSecret) {
-	this->firstName = firstName;
-	this->lastName = lastName;
-	this->nickName = nickName;
-	this->phoneNumber = phoneNumber;
-	this->darkestSecret = darkestSecret;
+	this->_firstName = firstName;
+	this->_lastName = lastName;
+	this->_nickName = nickName;
+	this->_phoneNumber = phoneNumber;
+	this->_darkestSecret = darkestSecret;
 }
 
-void	Contact::printColumn(std::string const str) const {
+void	Contact::_printColumn(std::string const str) const {
 
 	for (unsigned int i = 0; i < 10 - str.length(); i++)
 		std::cout << " ";
@@ -27,26 +34,26 @@ void	Contact::printColumn(std::string const str) const {
 
 void 	Contact::displayPreview(void) const {
 
-	std::string firstName = this->firstName.substr(0, 10);
-	if (this->firstName.length() > 10)
+	std::string firstName = this->_firstName.substr(0, 10);
+	if (this->_firstName.length() > 10)
 		firstName[9] = '.';
 
-	std::string lastName = this->lastName.substr(0, 10);
-	if (this->lastName.length() > 10)
+	std::string lastName = this->_lastName.substr(0, 10);
+	if (this->_lastName.length() > 10)
 		lastName[9] = '.';
 
-	std::string nickName = this->nickName.substr(0, 10);
-	if (this->nickName.length() > 10)
+	std::string nickName = this->_nickName.substr(0, 10);
+	if (this->_nickName.length() > 10)
 		nickName[9] = '.';
-	printColumn(firstName);
-	printColumn(lastName);
-	printColumn(nickName);
+	_printColumn(firstName);
+	_printColumn(lastName);
+	_printColumn(nickName);
 	std::cout << std::endl;
 }
 
 void	Contact::displayInformations(void) const {
-	std::cout << "First Name : " << this->firstName << "\n";
-	std::cout << "Last name : " << this->lastName << "\n";
-	std::cout << "Nickname : " << this->nickName << "\n";
-	std::cout << "Phone number " << this->phoneNumber << "\n";
+	std::cout << "First Name : " << this->_firstName << "\n";
+	std::cout << "Last name : " << this->_lastName << "\n";
+	std::cout << "Nickname : " << this->_nickName << "\n";
+	std::cout << "Phone number " << this->_phoneNumber << "\n";
 }

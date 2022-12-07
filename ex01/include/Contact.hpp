@@ -8,6 +8,8 @@ class Contact {
 
 public:
     Contact(void);
+    Contact(std::string firstName, std::string lastName, std::string nickName,
+            std::string phoneNumber, std::string darkestSecret);
     ~Contact(void);
 
     void    setContact(std::string firstName, std::string lastName, std::string nickName,
@@ -16,14 +18,14 @@ public:
 	void	displayInformations(void) const;
 
 private:
-    std::string firstName;
-    std::string lastName;
-    std::string phoneNumber;
-    std::string nickName;
-    std::string darkestSecret;
+    std::string _firstName;
+    std::string _lastName;
+    std::string _nickName;
+    std::string _phoneNumber;
+    std::string _darkestSecret;
 
 
-	void	printColumn(std::string const str) const;
+	void	_printColumn(std::string const str) const;
 };
 
 #endif

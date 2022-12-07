@@ -11,12 +11,14 @@ int main(void)
 
     PhoneBook phonebook;
     std::string input;
-    while (1) {
-        std::cin >> input;
-        //std::getline(std::cin, input);
+    while (std::getline(std::cin, input)) {
         std::cout << "\nstr from cin : " << input << std::endl;
         if (input == "ADD")
             phonebook.execAdd();
+        else if (input == "SEARCH")
+            phonebook.displayContacts();
+        else if (input == "EXIT")
+            break;
     }
 
 /*
