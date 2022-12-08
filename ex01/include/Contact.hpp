@@ -6,6 +6,16 @@
 
 class Contact {
 
+private:
+    std::string _firstName;
+    std::string _lastName;
+    std::string _nickName;
+    std::string _phoneNumber;
+    std::string _darkestSecret;
+
+
+	void	_printColumn(std::string const str) const;
+
 public:
     Contact(void);
     Contact(std::string firstName, std::string lastName, std::string nickName,
@@ -18,15 +28,7 @@ public:
 	void	displayInformations(void) const;
     bool    empty(void) const;
 
-private:
-    std::string _firstName;
-    std::string _lastName;
-    std::string _nickName;
-    std::string _phoneNumber;
-    std::string _darkestSecret;
 
-
-	void	_printColumn(std::string const str) const;
 };
 
 #endif

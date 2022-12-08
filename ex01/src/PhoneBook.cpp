@@ -13,29 +13,54 @@ PhoneBook::~PhoneBook (void) {
 	//std::cout << "Destructor PhoneBook called !" << std::endl;
 }
 
-void    PhoneBook::execAdd(void) {
-	int         count = 0;
+void PhoneBook::_promptAddFields(std::string res[])
+{
+
+	int isprintable = 1;
+	int count = 0;
 	std::string input = "";
-	std::string res[5];
+	size_t start;
+	size_t stop;
+	std::string whitespaces(" \t\f\v\n\r");
+
+	std::string::const_iterator it;
+
 	std::string questions[5] = {
 		"Firstname : ",
 		"Lastname : ",
 		"Nickname : ",
 		"Phone number : ",
-		"Your darkest secret : "
-	};
+		"Your darkest secret : "};
 
-	std::cout << "Creating a new user...\n";
-	while (input == "" || count < 5) {
-		
+	while (input == "" || count < 5)
+	{
+
 		std::cout << questions[count];
 		if (!std::getline(std::cin, input))
-			 std::exit(1);
-		if (input == "")
-			continue ;
+			std::exit(1);
+
+		it = input.begin();
+		while (it != input.end() && (isprintable = std::isprint(*it)))
+			it++;
+		start = input.find_first_not_of(whitespaces);
+		stop = input.find_last_not_of(whitespaces);
+		input = start == std::string::npos ? "" : input.substr(start, stop + 1);
+		if (input.empty() || !isprintable)
+			continue;
+
 		res[count] = input;
 		count++;
 	}
+}
+
+void    PhoneBook::execAdd(void) {
+	std::string res[5];
+
+
+	std::cout << "Creating a new user...\n";
+
+	_promptAddFields(res);
+
 
 	Contact contact_tmp1 = this->contacts[0];
 	Contact contact_tmp2;
