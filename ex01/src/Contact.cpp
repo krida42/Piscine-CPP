@@ -1,18 +1,18 @@
 #include "Contact.hpp"
 
 Contact::Contact(void) {
-    std::cout << "Contact Default Constructor called ! " << std::endl;
+    //std::cout << "Contact Default Constructor called ! " << std::endl;
 }
 
 Contact::Contact(std::string firstName, std::string lastName, std::string nickName, std::string phoneNumber, std::string darkestSecret) : 
 				_firstName(firstName), _lastName(lastName), _nickName(nickName),
 				_phoneNumber(phoneNumber), _darkestSecret(darkestSecret)
 				{
-    std::cout << "Contact Param Constructor called ! " << std::endl;
+    //std::cout << "Contact Param Constructor called ! " << std::endl;
 }
 
 Contact::~Contact(void) {
-    std::cout << "Contact Destructor called ! " << std::endl;
+    //std::cout << "Contact Destructor called ! " << std::endl;
 }
 
 void	Contact::setContact(std::string firstName, std::string lastName, std::string nickName,
