@@ -61,7 +61,9 @@ void	PhoneBook::execSearch(void) const {
 		std::cout << "\nSearch by index: ";
 		if (!std::getline(std::cin, input))
 			std::exit(1);
-		if (input.find_first_not_of("0123456789") != std::string::npos)
+		if (input.empty())
+			std::cout << "Please enter a number" << std::endl;
+		else if (input.find_first_not_of("0123456789") != std::string::npos)
 			std::cout << "Index not numeric or negative!" << std::endl;
 		else if (input.length() > 6 || atoi(input.c_str()) >= PhoneBook::_num_contacts)
 			std::cout << "Index out of range !" << std::endl;
@@ -72,7 +74,12 @@ void	PhoneBook::execSearch(void) const {
 }
 
 void	PhoneBook::_displayContacts(void) const {
-	std::stringstream stream;
+	std::stringstream	stream;
+	Contact				columnNames("First name", "Last name", "Nickname", "nil", "nil");
+	
+	if (!this->contacts[0].empty())
+		columnNames.displayPreview("Index");
+	
 	for (int i = 0; i < NUM_CONTACTS; i++) {
 		if (this->contacts[i].empty())
 			continue;
