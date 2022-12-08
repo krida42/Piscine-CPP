@@ -15,8 +15,9 @@ int main(void)
         std::cout << "\nstr from cin : " << input << std::endl;
         if (input == "ADD")
             phonebook.execAdd();
-        else if (input == "SEARCH")
-            phonebook.displayContacts();
+        else if (input == "SEARCH") {
+            phonebook.execSearch();
+        }
         else if (input == "EXIT")
             break;
     }
