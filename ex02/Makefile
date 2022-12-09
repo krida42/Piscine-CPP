@@ -10,7 +10,7 @@ SRC := $(addprefix src/, $(SRC))
 OBJ := $(addprefix obj/, $(OBJ))
 
 
-NAME := phonebook
+NAME := account
 
 all : mkdir_obj $(NAME)
 
