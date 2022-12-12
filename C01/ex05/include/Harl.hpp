@@ -20,12 +20,4 @@ class Harl {
         void    error(void) const;
 };
 
-struct Message {
-    std::string type;
-    void (Harl::*f)(void) const;
-    void init(std::string type, void (Harl::*f)(void) const);
-    Message(void);
-};
-
-
 #endif

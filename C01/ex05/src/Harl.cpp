@@ -7,15 +7,6 @@ std::string Harl::levels[]= {
     "ERROR"
 };
 
-Message::Message(void) {}
-
-void Message::init(std::string type, void (Harl::*f)(void) const)
-{
-    this->type= type;
-    f = f;
-    
-}
-
 
 void    Harl::debug(void) const {
     std::cout << "DEBUG: I love having extra bacon for my 7XL-double-cheese-triple-pickle-specialketchup burger. I really do!" << std::endl;
@@ -42,26 +33,10 @@ void Harl::complain(std::string level)
         &Harl::error
     };
 
-    /*Message messages[5];
-    messages[0].init(std::string("DEBUG"), &Harl::debug);
-    messages[1].init(std::string("INFO"), &Harl::info);
-    messages[2].init("WARNING", &Harl::warning);
-    messages[3].init("ERROR", &Harl::error);
-    messages[4].init("", NULL);
-    
-    int i = 0;
-    while(i < 2) {
-
-        if (messages[i].type == level)
-            (this->*(messages[i].f))();
-        i++;
-    }*/
     for (size_t i = 0; i < 4; i++)
     {
         if (Harl::levels[i] == level)
             (this->*f[i])();
     }
-    
-    std::cout << "Sizeof(messages): " << level << std::endl;
 }
 

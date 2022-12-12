@@ -33,7 +33,7 @@ fclean : clean
 re : fclean all
 
 test: all
-	@./megaphone
+	@./$(NAME)
 
 def_san : 
 	$(eval SAN := -fsanitize=address)
