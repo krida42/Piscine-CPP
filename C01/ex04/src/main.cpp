@@ -6,7 +6,8 @@
 
 int main(int argc, char const *argv[])
 {
-	(void)argc;
+	if (argc != 4)
+		return (std::cout << "Not the good amount of arguments", 1);
 
 	char const *ifname = argv[1];
 	std::string ofname_str = std::string(ifname).append(".replace");
