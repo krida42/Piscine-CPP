@@ -1,7 +1,7 @@
 #include "Fixed.hpp"
 
 
-int const Fixed::numBitsFract = 7;
+int const Fixed::numBitsFract = 8;
 
 Fixed::Fixed(void) : _raw(0) {
 	std::cout << "Default construtor called" << std::endl;
