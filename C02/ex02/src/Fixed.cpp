@@ -1,9 +1,38 @@
 #include "Fixed.hpp"
 
 
-int Fixed::verbose = 1;
+int Fixed::verbose = 0;
 
 int const Fixed::_nb_fractional_bits = 8;
+
+int Fixed::getNbFractional_bits(void) {
+	return Fixed::_nb_fractional_bits;
+}
+
+Fixed &	Fixed::min(Fixed & a, Fixed & b) {
+	if (a < b)
+		return a;
+	return b;
+}
+
+const Fixed & Fixed::min(Fixed const & a, Fixed const & b) {
+	if (a < b)
+		return a;
+	return b;
+}
+
+
+Fixed &	Fixed::max(Fixed & a, Fixed & b) {
+	if (a > b)
+		return a;
+	return b;
+}
+
+const Fixed & Fixed::max(Fixed const & a, Fixed const & b) {
+	if (a > b)
+		return a;
+	return b;
+}
 
 Fixed::Fixed(void) : _raw(0) {
 	if (Fixed::verbose)
@@ -77,16 +106,54 @@ Fixed Fixed::operator+(Fixed const &rhs) const {
 	
 	Fixed res;
 
-	res.setRawBits(this->getRawBits() - rhs.getRawBits());
+	res.setRawBits(this->getRawBits() + rhs.getRawBits());
 	return res;
 }
 
-Fixed Fixed::operator+(Fixed const &rhs) const {
+Fixed Fixed::operator-(Fixed const &rhs) const {
 	
 	Fixed res;
 	
 	res.setRawBits(this->getRawBits() - rhs.getRawBits());
 	return res;
+}
+
+Fixed Fixed::operator*(Fixed const &rhs) const {
+	
+	return Fixed(this->toFloat() * rhs.toFloat());
+}
+
+Fixed Fixed::operator/(Fixed const &rhs) const {
+	
+	return Fixed(this->toFloat() / rhs.toFloat());
+}
+
+Fixed &	Fixed::operator++(void) {
+	
+	this->_raw++;
+	return *this;
+}
+
+Fixed	Fixed::operator++(int) {
+	
+	Fixed prev(*this);
+	
+	++*this;
+	return prev;
+}
+
+Fixed &	Fixed::operator--(void) {
+	
+	this->_raw--;
+	return *this;
+}
+
+Fixed	Fixed::operator--(int) {
+	
+	Fixed prev(*this);
+	
+	--*this;
+	return prev;
 }
 
 int		Fixed::getRawBits(void) const {
@@ -110,6 +177,8 @@ float	Fixed::toFloat(void) const {
 int		Fixed::toInt(void) const {
 	return this->_raw >> Fixed::_nb_fractional_bits;
 }
+
+
 
 std::ostream & operator<<(std::ostream & o, Fixed const & rhs) {
 	o << rhs.toFloat();

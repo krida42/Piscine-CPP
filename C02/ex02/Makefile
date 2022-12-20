@@ -1,5 +1,6 @@
 CXX := c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -Iinclude -g $(SAN)
+CXXFLAGS2 = -Wall -Wextra -Werror -std=c++98 -Iinclude -g $(SAN)
+CXXFLAGS = -std=c++98 -Iinclude -g $(SAN)
 LDFLAGS = -g $(SAN)
 SHELL := /bin/bash
 
