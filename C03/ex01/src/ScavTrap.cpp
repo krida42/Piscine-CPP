@@ -12,6 +12,7 @@ ScavTrap::ScavTrap(ScavTrap const & src) : ClapTrap(src) {
 }
 
 ScavTrap::ScavTrap(std::string const & name) : ClapTrap(name) {
+    std::cout << "ScavTrap Name constructor called !" << std::endl;
     this->initDefaultAttr();
 }
 

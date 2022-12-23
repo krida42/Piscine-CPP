@@ -8,7 +8,7 @@ ClapTrap::ClapTrap(void) : _name("unknown"), _hitPoints(10), _attackDamage(0), _
 
 ClapTrap::ClapTrap(std::string const & name) : _name(name), _hitPoints(10), _attackDamage(0) , _energyPoints(10){
     
-	std::cout << "ClapTrap Param constructor called !" << std::endl;
+	std::cout << "ClapTrap Name constructor called !" << std::endl;
 }
 
 ClapTrap::ClapTrap(ClapTrap const & src) {
