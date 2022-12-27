@@ -3,14 +3,14 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -Iinclude -g $(SAN)
 LDFLAGS = -g $(SAN)
 SHELL := /bin/bash
 
-SRC := main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
+SRC := main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
 OBJ := $(SRC:.cpp=.o)
 
 SRC := $(addprefix src/, $(SRC))
 OBJ := $(addprefix obj/, $(OBJ))
 
 
-NAME := fragtrap
+NAME := diamondtrap
 
 all : mkdir_obj $(NAME)
 
