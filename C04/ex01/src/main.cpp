@@ -20,14 +20,22 @@ int main (void) {
 		std::cout << std::endl;
 	}
 
-	std::cout << "- - - - CREATING TEST\n\n" << std::endl;
+	std::cout << "- - - -  -TEST\n\n" << std::endl;
 	Dog dog = Dog();
+	std::cout << "\n--- dog created ---\n\n" << std::endl;
 
-	std::cout << "\n\n- - - - MESS ttttests\n" << std::endl;
-	//Dog dog2 = dog;
-	Dog dog2 = Dog();
 
-	std::cout << "\n\n--- destructor called ---\n\n" << std::endl;
+	Cat cat = Cat();
+	std::cout << "\n--- cat created ---\n\n" << std::endl;
+
+
+	Dog dog2(dog);
+	std::cout << "\n--- dog2 created ---\n\n" << std::endl;
+
+	Cat cat2(cat);
+	std::cout << "\n--- cat2 created ---\n\n" << std::endl;
+
+	std::cout << "\n--- destructor called ---\n\n" << std::endl;
 
 
 	return 0;
