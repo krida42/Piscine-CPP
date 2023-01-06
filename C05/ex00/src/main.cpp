@@ -25,7 +25,13 @@ int	main(void)
 
 		std::cout << "deniz2: " << deniz2 << std::endl << std::endl;
 
-		damien.downgrade();	
+		josh.upgrade();
+		std::cout << "josh: " << josh << std::endl;
+		josh.downgrade();
+		std::cout << "josh: " << josh << std::endl;
+		damien.downgrade(); // should throw an exception
+		//jef.upgrade(); // should throw an exception
+
 	} catch (Bureaucrat::GradeTooLowException & err) {
 
 		std::cout << "\nI guess grade is too low...\n";
