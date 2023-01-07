@@ -10,7 +10,11 @@ Bureaucrat::Bureaucrat(std::string const & name, int grade) :
 	_name(name), _grade(grade) {
 
 	std::cout << "Bureaucrat param constructor called" << std::endl;
-	}
+	if (grade < 1)
+		throw Bureaucrat::GradeTooHighException();
+	else if (grade > 150)
+		throw Bureaucrat::GradeTooLowException();
+}
 
 Bureaucrat::Bureaucrat(Bureaucrat const & src) : _name(src.getName()) {
 
