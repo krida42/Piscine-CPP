@@ -1,11 +1,12 @@
 #ifndef FORM_HPP
-
 # define FORM_HPP
+# pragma once
 
 # include <exception>
 # include <string>
 # include <ostream>
 # include <iostream>
+# include "Bureaucrat.hpp"
 
 
 class Bureaucrat;

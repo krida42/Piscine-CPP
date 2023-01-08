@@ -8,6 +8,10 @@ int	main(void)
 	Bureaucrat deniz("Deniz", 1);
 	Bureaucrat josh("Josh", 20);
 	Bureaucrat jef("Jeff", 1);
+	Form form("Formulaire 1", 1, 1);
+	Form form2("Formulaire 2", 150, 150);
+	//Form form3("Form3", 1500, 15); // should throw an exception
+	
 
 
 	std::cout << std::endl;
@@ -29,8 +33,14 @@ int	main(void)
 		std::cout << "josh: " << josh << std::endl;
 		josh.downgrade();
 		std::cout << "josh: " << josh << std::endl;
-		damien.downgrade(); // should throw an exception
+		//damien.downgrade(); // should throw an exception
 		//jef.upgrade(); // should throw an exception
+		damien.signForm(form2);
+		damien.signForm(form); //cannot sign form
+
+		std::cout << "Form 1: " << form << std::endl;
+		jef.signForm(form);
+		std::cout << "Form 1: " << form << std::endl;
 
 	} catch (Bureaucrat::GradeTooLowException & err) {
 
@@ -46,6 +56,10 @@ int	main(void)
 		std::cout << "\nI dont know what is the problem\n";
 		std::cout << err.what();
 	}
+	std::cout << std::endl;
+
+
+
 
 	std::cout << std::endl << std::endl;
 	return (0);

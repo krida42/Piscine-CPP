@@ -67,7 +67,12 @@ void Bureaucrat::downgrade(void) {
 }
 
 void Bureaucrat::signForm(Form & form) const {
-	(void) form;
+	try {
+		form.beSigned(*this);
+		std::cout << this->_name << " signs " << form.getName() << std::endl;
+	} catch (std::exception & e) {
+		std::cout << this->_name << " cannot sign " << form.getName() << " because " << e.what() << std::endl;
+	}
 }
 
 // - - - - - Exception - - - - -

@@ -72,10 +72,10 @@ int	Bureaucrat::getGrade(void) const {
 
 char const * Bureaucrat::GradeTooHighException::what(void) const throw() {
 	
-	return "Error: Grade too high, cannot upgrade anymore !";
+	return "Error: Grade too high !";
 }
 
 char const * Bureaucrat::GradeTooLowException::what(void) const throw() {
 
-	return "Error: Grade too loww, cannot downgrade anymore !";
+	return "Error: Grade too loww !";
 }

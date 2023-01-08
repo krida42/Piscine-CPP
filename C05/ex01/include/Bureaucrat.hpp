@@ -1,11 +1,12 @@
 #ifndef BUREAUCRAT_HPP
-
 # define BUREAUCRAT_HPP
+# pragma once
 
 # include <exception>
 # include <ostream>
 # include <string>
 # include <iostream>
+# include "Form.hpp"
 
 class Form;
 
