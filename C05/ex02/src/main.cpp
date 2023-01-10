@@ -1,15 +1,21 @@
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 #include <exception>
 
 int	main(void)
 {
 	std::cout << "Creating a bureaucrats" << std::endl;
-	Bureaucrat deniz("Deniz", 1);
+	Bureaucrat deniz("Denizzdd", 1);
 	Bureaucrat jamal("Jamal", 150);
 	ShrubberyCreationForm shrubbery("randomfilecopy.txt");
 	ShrubberyCreationForm shrubbery_copy(shrubbery);
-	//ShrubberyCreationForm default_shrubbery;
+	RobotomyRequestForm robotomy("Elie");
+	PresidentialPardonForm pardon("CuicuiPresident");
+
+
+
 	
 
 
@@ -24,6 +30,10 @@ int	main(void)
 
 		deniz.signForm(shrubbery_copy);
 		deniz.executeForm(shrubbery_copy);
+		deniz.signForm(robotomy);
+		deniz.executeForm(robotomy);
+		deniz.signForm(pardon);
+		deniz.executeForm(pardon);
 
 	} catch (std::exception & err) {
 

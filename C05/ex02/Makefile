@@ -3,7 +3,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -Iinclude -g $(SAN)
 LDFLAGS = -g $(SAN)
 SHELL := /bin/bash
 
-SRC := Bureaucrat.cpp AForm.cpp main.cpp ShrubberyCreationForm.cpp 
+SRC := Bureaucrat.cpp AForm.cpp main.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp 
 OBJ := $(SRC:.cpp=.o)
 INC := $(SRC:.cpp=.hpp)
 
