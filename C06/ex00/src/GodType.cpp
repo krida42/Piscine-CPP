@@ -2,7 +2,7 @@
 
 bool GodType::verbose = true;
 
-char const * GodType::ImpossibleConversionException::what(void) const throw(){
+char const * GodType::ImpossibleConversionException::what(void) const throw() {
 	return "ImpossibleConversionException";
 }
 
@@ -26,7 +26,6 @@ GodType::GodType(GodType const & src) {
 		std::cout << "GodType constructor copy called" << std::endl;
 	*this = src;
 }
-
 
 GodType::~GodType(void) {
 
@@ -62,13 +61,36 @@ double GodType::getDouble(void) const { return this->_doubleT; }
 // -----------------------------------------------------------------------
 // -----------------------------------------------------------------------
 
-GodType::Type GodType::getType(void) const {
+GodType::EType GodType::getType(void) const {
 
-	if (this->_strT.length() == 1 && isprint(this->_strT[0]))
-		return GodType::CHAR;
-	else if (this->_strT.find('.') != std::string::npos)
-		return DOUBLE;
-	else if (this->_strT.find_first_not_of("0123456789") == std::string::npos)
-		return INT;
+	if (this->_strT.length() == 1 && isprint(this->_strT[0]) && !isdigit(this->_strT[0]))
+		return CHAR;
+	else if (this->_strT.find_first_not_of("0123456789fF") == std::string::npos)
+		if (this->_strT.find_first_of("fF") != std::string::npos)
+			return GodType::FLOAT;
+		else if (this->_strT.find('.') != std::string::npos)
+			return GodType::DOUBLE;
+		else
+			return GodType::INT;
 	return NOTYPE;
+}
+
+bool GodType::isValid(std::string const &str, float) {
+
+	float f;
+	if (str.find_first_not_of("0123456789fF") == std::string::npos)
+		if (str.find_first_of("fF") != std::string::npos)
+			if (GodType::countof(str, "fF") == 1)
+				if (sscanf(str.c_str(), "%f", &f) == 1)
+					return true;
+			return true;
+}
+
+size_t GodType::countof(std::string const &str, std::string const & set) {
+	
+	size_t count = 0;
+	for (size_t i = 0; i < str.length(); i++)
+		if (set.find(str[i]) != std::string::npos)
+			count++;
+	return count;
 }

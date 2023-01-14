@@ -10,7 +10,7 @@ class GodType {
 
 private:
 
-	enum Type {
+	enum EType {
 		CHAR,
 		INT,
 		FLOAT,
@@ -26,6 +26,13 @@ private:
 public:
 
 	static bool verbose;
+	
+	static size_t countof(std::string const & str, std::string const & set);
+
+	static bool isValid(std::string const & str, char);
+	static bool isValid(std::string const & str, int);
+	static bool	isValid(std::string const & str, float);
+	static bool	isValid(std::string const & str, double);
 
 	GodType(std::string const & input);
 	GodType(GodType const & src);
@@ -38,7 +45,9 @@ public:
 	float	getFloat(void) const;
 	double	getDouble(void) const;
 
-	Type	getType() const;
+	EType	getType() const;
+	
+
 
 
 private:
