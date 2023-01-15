@@ -3,7 +3,7 @@ CXXFLAGS =  -Wall -Wextra -Werror -Wshadow -std=c++98 -Iinclude -g $(SAN)
 LDFLAGS = -g $(SAN)
 SHELL := /bin/bash
 
-SRC := main.cpp 
+SRC := main.cpp GodType.cpp
 OBJ := $(SRC:.cpp=.o)
 INC := $(SRC:.cpp=.hpp)
 

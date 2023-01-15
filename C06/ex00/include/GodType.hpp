@@ -4,7 +4,10 @@
 
 
 # include <string>
+# include <iomanip>
 # include <iostream>
+# include <limits>
+# include <cmath>
 
 class GodType {
 
@@ -19,7 +22,13 @@ private:
 	};
 
 	class ImpossibleConversionException : public std::exception {
-		public: char const * what() const throw();
+		private:
+			std::string const _msg;
+		public:
+		 	ImpossibleConversionException(void);
+			ImpossibleConversionException(std::string const &msg);
+			~ImpossibleConversionException(void) throw();
+			char const *what() const throw();
 	};
 
 
@@ -34,9 +43,12 @@ public:
 	static bool	isValid(std::string const & str, float);
 	static bool	isValid(std::string const & str, double);
 
+	static bool isConvertibleToInt(double nb);
+	static bool isConvertibleToFloat(double nb);
+
 	GodType(std::string const & input);
 	GodType(GodType const & src);
-	~GodType();
+	~GodType(void);
 
 	GodType & operator=(GodType const & rhs);
 
@@ -45,22 +57,35 @@ public:
 	float	getFloat(void) const;
 	double	getDouble(void) const;
 
-	EType	getType() const;
+	void	displayAll(void) const;
 	
 
 
 
 private:
 
-	GodType();
+	static int const _errInt;
+	static int const _errFloat;
 
 	std::string const _strT;
-
 	char 	_charT;
 	int 	_intT;
 	float	_floatT;
 	double	_doubleT;
 
+	EType	_type;
+	int		_errCode;
+
+	
+	GodType(void);
+
+	EType	_whatType(std::string const & str) const;
+	void	_parse(void);
+
+	void	_convertAllFromChar(void);
+	void	_convertAllFromInt(void);
+	void	_convertAllFromFloat(void);
+	void	_convertAllFromDouble(void);
 
 
 };
