@@ -14,9 +14,9 @@ class GodType {
 private:
 
 	enum EType {
-		CHAR,
-		INT,
-		FLOAT,
+		CHAR = 0,
+		INT   ,
+		FLOAT ,
 		DOUBLE,
 		NOTYPE
 	};
@@ -36,6 +36,8 @@ public:
 
 	static bool verbose;
 	
+	static std::string strtype(EType type);
+
 	static size_t countof(std::string const & str, std::string const & set);
 
 	static bool isValid(std::string const & str, char);
@@ -58,14 +60,16 @@ public:
 	double	getDouble(void) const;
 
 	void	displayAll(void) const;
-	
 
 
+	static void initConvertAll(void);
+	static void (GodType::* _convertAll[4])(void);
 
 private:
 
 	static int const _errInt;
 	static int const _errFloat;
+
 
 	std::string const _strT;
 	char 	_charT;

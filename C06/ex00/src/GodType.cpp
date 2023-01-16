@@ -5,6 +5,28 @@ bool 	GodType::verbose = true;
 int	const GodType::_errInt = 1;
 int	const GodType::_errFloat = 2;
 
+
+//void (GodType::* _convertAll[4])(void) = {
+
+void (GodType::* GodType::_convertAll[4])(void) = {
+	&GodType::_convertAllFromChar,
+	&GodType::_convertAllFromInt,
+	&GodType::_convertAllFromFloat,
+	&GodType::_convertAllFromDouble
+};
+
+/*
+void GodType::initConvertAll(void) {
+
+	GodType::_convertAll[0] = &GodType::_convertAllFromChar;
+	_convertAll[1] = &GodType::_convertAllFromInt;
+	_convertAll[2] = &GodType::_convertAllFromFloat;
+	_convertAll[3] = &GodType::_convertAllFromDouble;
+
+}
+*/
+
+
 GodType::ImpossibleConversionException::ImpossibleConversionException(void) {}
 GodType::ImpossibleConversionException::ImpossibleConversionException(std::string const &msg) : _msg(msg) {}
 
@@ -26,6 +48,7 @@ GodType::GodType(void) {
 
 	if (GodType::verbose)
 		std::cout << "GodType constructor default called" << std::endl;
+
 }
 
 GodType::GodType(std::string const & input) : _strT(input), _type(this->_whatType(input)){
@@ -35,6 +58,11 @@ GodType::GodType(std::string const & input) : _strT(input), _type(this->_whatTyp
 	
 	this->_errCode = 0;
 	this->_parse();
+	std::cout << "\nTYPE: " << GodType::strtype(this->_type) << std::endl << std::endl;
+
+	//(this->*GodType::_convertAll[this->_type])();
+	(this->*_convertAll[this->_type])();
+
 
 }
 
@@ -78,6 +106,18 @@ double GodType::getDouble(void) const { return this->_doubleT; }
 
 // -----------------------------------------------------------------------
 // -----------------------------------------------------------------------
+
+std::string GodType::strtype(EType type) {
+
+	switch (type) {
+		case GodType::CHAR: return "char";
+		case GodType::INT: return "int";
+		case GodType::FLOAT: return "float";
+		case GodType::DOUBLE: return "double";
+		case GodType::NOTYPE: return "notype";
+		default: return "unknown";
+	}
+}
 
 size_t GodType::countof(std::string const &str, std::string const & set) {
 	
@@ -141,6 +181,9 @@ GodType::EType GodType::_whatType(std::string const & str) const {
 
 void GodType::_parse(void) {
 
+	std::cout << "Parsing: " << this->_strT << std::endl;
+	std::cout << "Type: " << GodType::strtype(this->_type) << std::endl << std::endl;
+
 	if (this->_type == GodType::CHAR)
 		this->_charT = this->_strT[0];
 	else if (this->_type == GodType::INT)
@@ -155,6 +198,9 @@ void GodType::_parse(void) {
 
 void GodType::_convertAllFromChar(void) {
 
+	if (verbose)
+		std::cout << "GodType::_convertAllFromChar called" << std::endl;
+
 	if (this->_type == GodType::CHAR) {
 		this->_intT = static_cast<int>(this->_charT);
 		this->_floatT = static_cast<float>(this->_charT);
@@ -165,6 +211,9 @@ void GodType::_convertAllFromChar(void) {
 }
 
 void GodType::_convertAllFromFloat(void) {
+
+	if (verbose)
+		std::cout << "GodType::_convertAllFromFloat called" << std::endl;
 
 	if (this->_type == GodType::FLOAT) {
 		this->_charT = static_cast<char>(this->_floatT);
@@ -182,6 +231,9 @@ void GodType::_convertAllFromFloat(void) {
 
 void GodType::_convertAllFromDouble(void) {
 
+	if (verbose)
+		std::cout << "GodType::_convertAllFromDouble called" << std::endl;
+
 	if (this->_type == GodType::DOUBLE) {
 		this->_charT = static_cast<char>(this->_doubleT);
 		this->_intT = static_cast<int>(this->_doubleT);
@@ -197,6 +249,9 @@ void GodType::_convertAllFromDouble(void) {
 }
 
 void GodType::_convertAllFromInt(void) {
+
+	if (verbose)
+		std::cout << "GodType::_convertAllFromInt called" << std::endl;
 
 	if (this->_type == GodType::INT) {
 		this->_charT = static_cast<char>(this->_intT);

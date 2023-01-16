@@ -14,6 +14,7 @@ int	main(int argc, char **argv)
 	std::string const arg = argv[1];
 
 	GodType god(arg);
+	std::cout << std::endl;
 	god.displayAll();
 	return (0);
 }
