@@ -1,6 +1,7 @@
 #include "GodType.hpp"
+#include <limits>
 
-bool 	GodType::verbose = true;
+bool 	GodType::verbose = false;
 
 int	const GodType::_errInt = 1;
 int	const GodType::_errFloat = 2;
@@ -27,19 +28,25 @@ void GodType::initConvertAll(void) {
 */
 
 
-GodType::ImpossibleConversionException::ImpossibleConversionException(void) {}
-GodType::ImpossibleConversionException::ImpossibleConversionException(std::string const &msg) : _msg(msg) {}
+GodType::ImpossibleConversionException::ImpossibleConversionException(void) : _type(NOTYPE) {}
+
+GodType::ImpossibleConversionException::ImpossibleConversionException(EType const type) : _type(type) {}
 
 GodType::ImpossibleConversionException::~ImpossibleConversionException(void) throw() {}
 
 char const * GodType::ImpossibleConversionException::what(void) const throw() {
 
-	std::string msg("ImpossibleConversionException: ");
-	if (this->_msg.length() > 0)
-		msg += this->_msg;
+	if (this->_type == INT)
+		return "ImpossibleConversionException from: int";
+	else if (this->_type == FLOAT)
+		return "ImpossibleConversionException from: float";
+	else if (this->_type == DOUBLE)
+		return "ImpossibleConversionException from: double";
+	else if (this->_type == CHAR)
+		return "ImpossibleConversionException from: char";
 	else
-		msg += "No message";
-	return msg.c_str();
+		return "ImpossibleConversionException from: notype";
+
 }
 
 // -----------------------------------------------------------------------
@@ -57,11 +64,19 @@ GodType::GodType(std::string const & input) : _strT(input), _type(this->_whatTyp
 		std::cout << "GodType constructor string called" << std::endl;
 	
 	this->_errCode = 0;
-	this->_parse();
-	std::cout << "\nTYPE: " << GodType::strtype(this->_type) << std::endl << std::endl;
+	
+
+	try {
+		this->_parse();
+		(this->*_convertAll[this->_type])();
+	} catch (ImpossibleConversionException & e) {
+		std::cout << e.what() << std::endl;
+		std::cout << "I can only accept a number or a char" << std::endl;
+	}
+
+
 
 	//(this->*GodType::_convertAll[this->_type])();
-	(this->*_convertAll[this->_type])();
 
 
 }
@@ -133,6 +148,11 @@ size_t GodType::countof(std::string const &str, std::string const & set) {
 
 void GodType::displayAll(void) const {
 
+	if (this->_type == NOTYPE) {
+		std::cout << "Impossible to display all" << std::endl;
+		return ;
+	}
+
 	// --------------- char ------------------
 	std::cout << "char: ";
 	if (this->_errCode & GodType::_errInt)
@@ -181,8 +201,10 @@ GodType::EType GodType::_whatType(std::string const & str) const {
 
 void GodType::_parse(void) {
 
-	std::cout << "Parsing: " << this->_strT << std::endl;
-	std::cout << "Type: " << GodType::strtype(this->_type) << std::endl << std::endl;
+	if (verbose) {
+		std::cout << "Parsing: " << this->_strT << std::endl;
+		std::cout << "Type: " << GodType::strtype(this->_type) << std::endl << std::endl;
+	}
 
 	if (this->_type == GodType::CHAR)
 		this->_charT = this->_strT[0];
@@ -207,7 +229,7 @@ void GodType::_convertAllFromChar(void) {
 		this->_doubleT = static_cast<double>(this->_charT);
 	}
 	else
-		throw GodType::ImpossibleConversionException("Conversion from char impossible because it's not a char");
+		throw GodType::ImpossibleConversionException(this->_type);
 }
 
 void GodType::_convertAllFromFloat(void) {
@@ -221,7 +243,7 @@ void GodType::_convertAllFromFloat(void) {
 		this->_doubleT = static_cast<double>(this->_floatT);
 	}
 	else
-		throw GodType::ImpossibleConversionException("Conversion from float impossible because it's not a float");
+		throw GodType::ImpossibleConversionException(this->_type);
 	
 	
 	if (GodType::isConvertibleToInt(this->_floatT) == false)
@@ -240,7 +262,7 @@ void GodType::_convertAllFromDouble(void) {
 		this->_floatT = static_cast<float>(this->_doubleT);
 	}
 	else
-		throw GodType::ImpossibleConversionException("Conversion from double impossible because it's not a double");
+		throw GodType::ImpossibleConversionException(this->_type);
 
 	if (GodType::isConvertibleToInt(this->_doubleT) == false)
 		this->_errCode += GodType::_errInt;
@@ -259,19 +281,29 @@ void GodType::_convertAllFromInt(void) {
 		this->_doubleT = static_cast<double>(this->_intT);
 	}
 	else
-		throw GodType::ImpossibleConversionException("Conversion from int impossible because it's not an int");
+		throw GodType::ImpossibleConversionException(this->_type);
 }
 
 //-                        static functions                         -//
 // -----------------------------------------------------------------------
 // -----------------------------------------------------------------------
 
+bool GodType::isSignGood(std::string const & str) {
+
+	
+	if ((str.length() > 1 && countof(str, "+-") == 1 && (str[0] == '-' || str[0] == '+')) ||
+			(countof(str, "+-") == 0))
+		return true;
+	return false;
+}
+
 bool GodType::isValid(std::string const &str, float) {
 
 	if (str == "nanf" || str == "+inff" || str == "-inff")
 		return true;
 
-	if (str.find_first_not_of(".0123456789fF") == std::string::npos &&
+	if (str.find_first_not_of("-+.0123456789fF") == std::string::npos &&
+			isSignGood(str) &&
 			GodType::countof(str, "fF") == 1 &&
 			GodType::countof(str, ".") == 1 &&
 			str.length() > 2 &&
@@ -288,15 +320,19 @@ bool GodType::isValid(std::string const &str, double) {
 	if (str == "nan" || str == "+inf" || str == "-inf")
 		return true;
  
-	if (str.find_first_not_of(".0123456789") == std::string::npos)
-		if (GodType::countof(str, ".") == 1 && str.length() > 1)
+	if (str.find_first_not_of("-+.0123456789") == std::string::npos &&
+			isSignGood(str) &&
+			GodType::countof(str, ".") == 1 &&
+			str.length() > 1)
 			return true;
+
 	return false;
 }
 
 bool GodType::isValid(std::string const &str, int) {
 
-	if (str.find_first_not_of("0123456789") == std::string::npos &&
+	if (str.find_first_not_of("-+0123456789") == std::string::npos &&
+			isSignGood(str) &&
 			str.length() > 0) {
 
 		return true;
@@ -313,8 +349,9 @@ bool GodType::isValid(std::string const &str, char) {
 
 bool GodType::isConvertibleToFloat(double nb) {
 	
-	if (nb > std::numeric_limits<float>::max() || nb < -std::numeric_limits<float>::max())
-		return false;
+	if (nb != std::numeric_limits<double>::infinity() && nb != -std::numeric_limits<double>::infinity())
+		if (nb > std::numeric_limits<float>::max() || nb < -std::numeric_limits<float>::max())
+			return false;
 	return true;
 }
 

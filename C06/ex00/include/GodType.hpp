@@ -23,10 +23,10 @@ private:
 
 	class ImpossibleConversionException : public std::exception {
 		private:
-			std::string const _msg;
+			EType const _type;
 		public:
 		 	ImpossibleConversionException(void);
-			ImpossibleConversionException(std::string const &msg);
+			ImpossibleConversionException(EType const type);
 			~ImpossibleConversionException(void) throw();
 			char const *what() const throw();
 	};
@@ -47,6 +47,8 @@ public:
 
 	static bool isConvertibleToInt(double nb);
 	static bool isConvertibleToFloat(double nb);
+
+	static bool isSignGood(std::string const & str);
 
 	GodType(std::string const & input);
 	GodType(GodType const & src);
