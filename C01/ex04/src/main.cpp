@@ -26,13 +26,13 @@ int main(int argc, char const *argv[])
 	if (!ifs)
 	{
 		perror("Failed");
+		ifs.close();
 		return 1;
 	}
 
 	std::ofstream ofs(ofname);
 	while (std::getline(ifs, buf))
 	{
-		std::cout << "ENTER\n";
 		buf_replaced = "";
 		pos = 0;
 		while (pos < buf.length())
@@ -54,6 +54,9 @@ int main(int argc, char const *argv[])
 
 	if (ifs.fail() && !ifs.eof())
 		std::cout << "An error has occured" << std::endl;
+	
+	ifs.close();
+	ofs.close();
 
 	std::cout << std::endl;
 	return 0;
