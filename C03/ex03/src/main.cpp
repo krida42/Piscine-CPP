@@ -8,18 +8,12 @@ int main (void) {
 	DiamondTrap diamond("Eliott");
 	std::cout << std::endl;
 
-	std::cout << "FragTrap hit points: " << diamond.FragTrap::gethitPoints() << std::endl;
-	std::cout << "ScavTrap hit points: " << diamond.ScavTrap::gethitPoints() << std::endl << std::endl;
-
-
 	
 
-	std::cout << std::endl;
-
+	std::cout << "DiamondTrap hit points: " << diamond.gethitPoints() << std::endl;
+	std::cout << "DiamondTrap attack damage: " << diamond.getAttackDamage() << std::endl;
+	std::cout << "DiamondTrap energy points: " << diamond.getEnergyPoints() << std::endl;
 	diamond.attack("KIRIKOU");
-	diamond.ClapTrap::attack("KIRIKOU");
-	diamond.ScavTrap::attack("KIRIKOU");
-	diamond.FragTrap::attack("KIRIKOU");
 
 	std::cout << std::endl;
 	diamond.whoAmI();

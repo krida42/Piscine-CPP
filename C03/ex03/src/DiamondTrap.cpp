@@ -7,7 +7,7 @@ DiamondTrap::DiamondTrap(void){
     this->_name = "DiamondTrap_unnamed";
 }
 
-DiamondTrap::DiamondTrap(std::string const & name) : ClapTrap(name + "_clap_name"){
+DiamondTrap::DiamondTrap(std::string const & name) : ClapTrap(name + "_clap_name"), ScavTrap(int()), FragTrap(int()){
     std::cout << "Diamond Name constructor called !" << std::endl;
     this->_initDefaultAttr();
     this->_name = name;

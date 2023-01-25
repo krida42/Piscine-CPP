@@ -17,6 +17,12 @@ ScavTrap::ScavTrap(std::string const & name) : ClapTrap(name) {
     this->initDefaultAttr();
 }
 
+ScavTrap::ScavTrap(int) {
+    std::cout << "ScavTrap Int constructor called !" << std::endl;
+    
+    this->_energyPoints = 50;
+}
+
 ScavTrap::~ScavTrap(void) {
     std::cout << "ScavTrap Destructor called !" << std::endl;
 }

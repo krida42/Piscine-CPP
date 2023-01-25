@@ -16,6 +16,13 @@ FragTrap::FragTrap(std::string const & name) : ClapTrap(name) {
     this->initDefaultAttr();
 }
 
+FragTrap::FragTrap(int) {
+    std::cout << "FragTrap Int constructor called !" << std::endl;
+
+    this->_hitPoints = 100;
+    this->_attackDamage = 30;
+}
+
 FragTrap::~FragTrap(void) {
     std::cout << "FragTrap Destructor called !" << std::endl;
 }

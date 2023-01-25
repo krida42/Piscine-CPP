@@ -12,6 +12,7 @@ public:
     ScavTrap(void);
     ScavTrap(ScavTrap const & src);
     ScavTrap(std::string const & name);
+    ScavTrap(int);
     ~ScavTrap(void);
 
     ScavTrap & operator=(ScavTrap const & rhs);
