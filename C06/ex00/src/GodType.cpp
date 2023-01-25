@@ -211,7 +211,7 @@ void GodType::_parse(void) {
 	else if (this->_type == GodType::INT)
 		this->_intT = atoi(this->_strT.c_str());
 	else if (this->_type == GodType::FLOAT)
-		this->_floatT = atof(this->_strT.c_str());
+		this->_floatT = static_cast<float>(atof(this->_strT.c_str()));
 	else if (this->_type == GodType::DOUBLE)
 		this->_doubleT = atof(this->_strT.c_str());
 	else
