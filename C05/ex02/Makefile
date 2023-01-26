@@ -1,4 +1,4 @@
-CX := c++
+CXX := c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -Iinclude -g $(SAN)
 LDFLAGS = -g $(SAN)
 SHELL := /bin/bash
