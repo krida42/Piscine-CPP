@@ -13,7 +13,7 @@ INC := $(addprefix include/, $(INC))
 INC := $(filter-out include/main.hpp, $(INC))
 
 
-NAME := exec
+NAME := converter
 
 all : mkdir_obj $(NAME)
 
