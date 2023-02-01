@@ -4,10 +4,9 @@ LDFLAGS = -g $(SAN)
 SHELL := /bin/bash
 
 SRC := main.cpp
-TPL:= easyfind.tppdd
 
 OBJ := $(SRC:.cpp=.o)
-INC := $(SRC:.cpp=.hpp) $(TPL:.tpp=.hpp)
+INC := $(SRC:.cpp=.hpp)
 
 
 SRC := $(addprefix src/, $(SRC))
