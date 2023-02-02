@@ -8,6 +8,7 @@
 # include <stdexcept>
 # include <sstream>
 # include <iomanip>
+# include <iterator>
 
 class Span {
 public:
@@ -21,6 +22,7 @@ public:
 	Span & operator=(Span const & rhs);
 
 	void addNumber(int nb);
+	void addIterator(std::vector<int>::const_iterator first, std::vector<int>::const_iterator last);
 	int shortestSpan(void) const;
 	int longestSpan(void) const;
 

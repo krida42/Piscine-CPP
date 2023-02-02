@@ -14,6 +14,23 @@ Span::Span(unsigned int N):  _N(N) {
         std::cout << "Span N parameter constructor called !" << std::endl;
 }
 
+Span::Span(Span const & src) : _N(src._N) {
+
+	if (verbose)
+		std::cout << "Span Copy constructor called !" << std::endl;
+	*this = src;
+}
+
+Span & Span::operator=(Span const & rhs) {
+
+	if (this != &rhs) {
+		if (verbose)
+			std::cout << "Span Assignation operator called !" << std::endl;
+		this->_vec = rhs._vec;
+	}
+	return *this;
+}
+
 Span::~Span(void) {
 
     if (verbose)
@@ -24,9 +41,20 @@ void Span::addNumber(int nb) {
     
     if (this->_vec.size() ==  this->_N)
         throw std::out_of_range("addNumber(int nb) - Cannot add more number to vector");
-    this->_vec.push_back(nb);
+
     if (verbose)
         std::cout << "Number: " << std::setw(3) << nb << "  added to vector ! " << std::endl;
+    this->_vec.push_back(nb);
+}
+
+void Span::addIterator(std::vector<int>::const_iterator first, std::vector<int>::const_iterator last) {
+
+	if (distance(first, last) + this->_vec.size() > this->_N)
+		throw std::out_of_range("addIterator(first, last) - Too much number to add to vector");
+	
+	if (verbose)
+		std::cout << "Range of " << distance(first, last) << " number added to vector !" << std::endl;
+	copy(first, last, back_inserter(this->_vec));
 }
 
 int Span::shortestSpan(void) const {
@@ -55,10 +83,12 @@ int Span::longestSpan(void) const {
     return vec[vec.size() - 1] - vec[0];
 }
 
+
+
 std::string Span::toString(void) const {
 
     std::stringstream  ss;
-    ss.str("Vector: [");
+    ss << "Vector: [";
 
 
     for (std::vector<int>::const_iterator it = this->_vec.begin(); it != this->_vec.end(); ++it) {
