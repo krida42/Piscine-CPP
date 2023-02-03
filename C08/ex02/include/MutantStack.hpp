@@ -28,9 +28,7 @@ template <typename T>
 MutantStack<T>::MutantStack(void) {}
 
 template <typename T>
-MutantStack<T>::MutantStack(MutantStack const & src) {
-    *this = src;
-}
+MutantStack<T>::MutantStack(MutantStack const & src) : std::stack<T>(src) {}
 
 template <typename T>
 MutantStack<T>::~MutantStack(void) {}

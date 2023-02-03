@@ -10,6 +10,8 @@ int main(void)
 	MutantStack<int> stouck;
 
 
+
+
 	stouck.push(111);
 	stouck.push(22);
 	stouck.push(33);
@@ -20,8 +22,16 @@ int main(void)
 	stouck.push(88);
 	stouck.push(999);
 
+	MutantStack<int> stick(stouck);
+
 	for (MutantStack<int>::iterator it = stouck.begin(); it != stouck.end(); ++it)
 		std::cout << *it << " ";
+
+	std::cout << std::endl;
+	
+
+	for (MutantStack<int>::iterator it1 = stick.begin(); it1 != stick.end(); ++it1)
+		std::cout << *it1 << " ";
 
 	return 0;
 }
