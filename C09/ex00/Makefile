@@ -15,7 +15,7 @@ INC := $(addprefix include/, $(INC))
 INC := $(filter-out include/main.hpp, $(INC))
 
 
-NAME := exec
+NAME := btc
 
 all : mkdir_obj $(NAME)
 
