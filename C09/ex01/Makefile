@@ -1,0 +1,49 @@
+CXX := c++
+CXXFLAGS =  -Wall -Wextra -Werror -Wshadow -std=c++98 -Iinclude -Itemplate -g $(SAN)
+LDFLAGS = -g $(SAN)
+SHELL := /bin/bash
+
+SRC := main.cpp RPN.cpp
+
+OBJ := $(SRC:.cpp=.o)
+INC := $(SRC:.cpp=.hpp)
+
+
+SRC := $(addprefix src/, $(SRC))
+OBJ := $(addprefix obj/, $(OBJ))
+INC := $(addprefix include/, $(INC))
+INC := $(filter-out include/main.hpp, $(INC))
+
+
+NAME := RPN
+
+all : mkdir_obj $(NAME)
+
+mkdir_obj :
+	@mkdir -p obj
+
+$(NAME) : $(OBJ)
+	$(CXX) $(OBJ) -o $(NAME) $(LDFLAGS)
+
+
+obj/%.o : src/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean :
+	@rm -rf obj
+
+fclean : clean
+	@rm -f $(NAME)
+
+re : fclean all
+
+test: all
+	@./$(NAME)
+
+def_san : 
+	$(eval SAN := -fsanitize=address)
+
+
+san : def_san re
+
+.PHONY : all clean fclean re mkdir_obj san def_san
