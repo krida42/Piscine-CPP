@@ -6,7 +6,14 @@ RPN::~RPN() {}
 
 RPN::RPN(std::string const & str) {
     this->_str = str;
-    this->_convert();
+    try {
+        this->_result = this->_calculate();
+    }
+    catch(const InvalidExprException& e) {
+        this->_result = std::numeric_limits<double>::quiet_NaN();
+        // std::cerr << e.what() << '\n';
+    }
+    
 }
 
 RPN::RPN(RPN const & src) {
@@ -16,7 +23,7 @@ RPN::RPN(RPN const & src) {
 RPN & RPN::operator=(RPN const & rhs) {
     if (this != &rhs) {
         this->_str = rhs._str;
-        this->_rpn = rhs._rpn;
+        this->_result = rhs._result;
     }
     return *this;
 }
@@ -25,39 +32,55 @@ std::string RPN::getStr() const {
     return this->_str;
 }
 
-RPN::list_type RPN::getRpn() const {
-    return this->_rpn;
+long double RPN::getResult() const {
+    return this->_result;
 }
 
-void RPN::_convert() {
+double RPN::_calculate() {
 
     if (_str.find_first_not_of("0123456789+-/* ") != std::string::npos)
-        throw InvalidTokenException();
+        throw InvalidExprException();
 
-    std::string nb = "";
-    std::string::const_iterator it;
-    for (it = _str.cbegin(); it != _str.cend(); ++it) {
-        if (!isdigit(*it) && !nb.empty()) {
-            _rpn.push_back(nb);
-            nb.clear();
+    std::stack<double> pile;
+    std::istringstream iss(this->_str);
+    std::string token;
+
+    while (iss >> token) {
+        if (token == "+" || token == "-" || token == "*" || token == "/") {
+            if (pile.size() < 2) {
+                throw InvalidExprException();
+            }
+            double b = pile.top(); pile.pop();
+            double a = pile.top(); pile.pop();
+
+            if (token == "+") {
+                pile.push(a + b);
+            } else if (token == "-") {
+                pile.push(a - b);
+            } else if (token == "*") {
+                pile.push(a * b);
+            } else if (token == "/") {
+                pile.push(a / b);
+            }
+        } else {
+            // std::cout << "token: |" << token << "|" << std::endl;
+            pile.push(atof(token.c_str()));
         }
-        if (*it == ' ')
-            continue;
-        if (isdigit(*it))
-            nb += *it;
-        else
-            _rpn.push_back(std::string(1, *it));
     }
+
+    if (pile.size() != 1) {
+        throw InvalidExprException();
+    }
+
+    return pile.top();
 }
 
-char const * RPN::InvalidTokenException::what(void) const throw() {
-    return "Invalid token in string";
+char const * RPN::InvalidExprException::what() const throw() {
+    return "Invalid expression in string";
 }
 
 std::ostream & operator<<(std::ostream & o, RPN const & rhs) {
-    RPN::list_type tmp = rhs.getRpn();
-    std::cout << "RPN: |";
-    for (RPN::list_type::const_iterator it = tmp.begin(); it != tmp.end(); ++it)
-        std::cout << *it << "|";
+    o << rhs.getStr() << " = " << rhs.getResult();
     return o;
+
 }

@@ -31,6 +31,7 @@
         "fstream": "cpp",
         "cstring": "cpp",
         "iomanip": "cpp",
-        "ctime": "cpp"
+        "ctime": "cpp",
+        "list": "cpp"
     }
 }

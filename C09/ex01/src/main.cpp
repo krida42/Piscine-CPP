@@ -1,8 +1,15 @@
 #include "RPN.hpp"
 
-int main(void)
+int main(int argc, char **argv)
 {
-	RPN rpn("5 5 +-x");
-	std::cout << rpn << std::endl;
+	if (argc != 2) {
+		std::cout << "Need one argument" << std::endl;
+		return 1;
+	}
+	RPN rpn(argv[1]);
+	if (isnan(rpn.getResult()))
+		std::cout << "Error" << std::endl;
+	else
+		std::cout << rpn.getResult() << std::endl;
 	return 0;
 }

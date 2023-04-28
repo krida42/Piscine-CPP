@@ -6,6 +6,11 @@
 # include <list>
 # include <iostream>
 # include <exception>
+# include <stack>
+# include <sstream>
+# include <cstdlib>
+# include <limits>
+# include <cmath>
 
 class RPN
 {
@@ -18,21 +23,20 @@ public:
 
     RPN &operator=(RPN const &rhs);
 
-    std::string	getStr() const;
-    list_type       getRpn() const;
-    double		getResult() const;
+    std::string	    getStr() const;
+    long double		getResult() const;
 
 private:
 
     RPN();
 
     std::string _str;
-    list_type	    _rpn;
+    long double _result;
     
-    void		_calculate();
+    double      _calculate();
     void		_convert();
 
-    class InvalidTokenException : std::exception {
+    class InvalidExprException : std::exception {
         public: char const * what() const throw();
     };
 
