@@ -13,6 +13,7 @@ public:
 
     static vector_type insert_sort(vector_type const & arr);
     static vector_type merge_sort(vector_type const & arr);
+    static vector_type merge_insert_sort(vector_type const & arr);
     static bool is_sorted(vector_type const & arr);
     ~PmergeMe();
 
