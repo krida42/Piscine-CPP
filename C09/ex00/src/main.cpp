@@ -1,6 +1,7 @@
 #include "BitcoinExchange.hpp"
 #include <limits>
 #include <cstdio>
+#include <cstdlib>
 
 int is_err_date(std::string const & dateP) {
 	std::string date = dateP.substr(0, dateP.find_last_not_of(' '));
@@ -73,7 +74,7 @@ int main(int argc, char **argv) {
 	}
 	
 	BitcoinExchange btc_exch("./data.csv");
-	std::cout << btc_exch << std::endl;
+	//std::cout << btc_exch << std::endl;
 
 	std::ifstream ifs;
 	ifs.open(argv[1]);

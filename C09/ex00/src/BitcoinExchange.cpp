@@ -41,7 +41,7 @@ BitcoinExchange::BitcoinExchange(std::string const & filename) {
     _last_date = 0;
     std::ifstream ifs;
 
-    ifs.open(filename);
+    ifs.open(filename.c_str());
     if (!ifs.is_open()) {
         std::cout << "Le fichier data.csv n'a pas pu etre ouvert" << std::endl;
         perror(filename.c_str());
@@ -89,7 +89,7 @@ std::ostream & operator<<(std::ostream & o, BitcoinExchange const & rhs) {
 
     BitcoinExchange::map_type::const_iterator it;
     size_t i = 0;
-    for (it = price_history.cbegin(); it != price_history.cend(); ++it) {
+    for (it = price_history.begin(); it != price_history.end(); ++it) {
         //o << std::setw(20) << it->first << std::endl;
         o << std::setw(20)  << std::right << BitcoinExchange::nb_to_date_string(it->first);
         o << " : " << it->second << std::endl;
