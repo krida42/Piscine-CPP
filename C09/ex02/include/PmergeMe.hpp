@@ -30,6 +30,11 @@ private:
     PmergeMe(PmergeMe const & src);
     PmergeMe & operator=(PmergeMe const & rhs);
 
+public:
+    class InvalidCharacterException : public std::exception {
+        public: char const * what() const throw();
+    };
+
 };
 
 

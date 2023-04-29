@@ -250,4 +250,6 @@ PmergeMe & PmergeMe::operator=(PmergeMe const & rhs) {
     return *this;
 }
 
-
+char const * PmergeMe::InvalidCharacterException::what() const throw() {
+    return "PmergeMe exception InvalidCharacterException";
+}

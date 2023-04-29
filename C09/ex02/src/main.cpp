@@ -5,24 +5,42 @@
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
+#include <iostream>
+#include <climits>
+#include <string>
+#include <cstdlib>
+#include <cctype>
+#include <cerrno>
 
+bool is_positive_integer(const char *str) {
+    for (int i = 0; str[i] != '\0'; ++i) {
+        if (!isdigit(str[i]))
+            return false;
+    }
 
-// std::string time_usec_to_str(unsigned long long time_usec) {
-// 	std::stringstream ss;
-// 	long double time_msec = time_usec / 1000.0;
-// 	long double time_sec = time_msec / 1000.0;
+    errno = 0;
+    unsigned long long number = strtoul(str, NULL, 10);
+    if (errno == ERANGE || number > UINT_MAX)
+        return false;
 
-	
+    return true;
+}
 
-// 	if (time_sec > 1)
-// 		ss << time_sec << "s";
-// 	else if (time_msec > 0.01)
-// 		ss << time_msec << " ms";
-// 	else
-// 		ss << time_usec <<  " us";
+std::vector<unsigned int> convert_argv_to_uint_vector(int argc, char **argv) {
+    std::vector<unsigned int> uint_vector;
 
-// 	return ss.str();
-// }
+    for (int i = 1; i < argc; ++i) {
+        if (is_positive_integer(argv[i])) {
+            unsigned int number = static_cast<unsigned int>(strtoul(argv[i], NULL, 10));
+            uint_vector.push_back(number);
+        } else {
+            throw PmergeMe::InvalidCharacterException();
+        }
+    }
+
+    return uint_vector;
+}
+
 
 unsigned long long get_time(void) {
 	timeval	time;
@@ -68,19 +86,19 @@ void display_time_to_process(size_t nb_el, unsigned long long vec_usec, unsigned
 
 int main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
-
-	std::srand(get_time());
-
 	std::vector<uint> unsorted;
-	std::deque<uint> unsorted_deque;
-	
-	for (size_t i = 0; i < 5000; i++) {
-		int random_number = (std::rand() % 500) + 1;
-		unsorted_deque.push_back(random_number);
-		unsorted.push_back(random_number);
+
+	try {
+		unsorted = convert_argv_to_uint_vector(argc, argv);
 	}
+	catch(const PmergeMe::InvalidCharacterException & e) {
+		std::cout << "Error" << std::endl;
+		return 1;
+	}
+	
+	std::deque<uint> unsorted_deque(unsorted.begin(), unsorted.end());
+
+
 	
 	// std::cout << "is input sorted ? " << PmergeMe::is_sorted(unsorted) << std::endl;
 	std::cout << "Before:\t";
