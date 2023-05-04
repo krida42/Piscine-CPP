@@ -86,6 +86,11 @@ void display_time_to_process(size_t nb_el, unsigned long long vec_usec, unsigned
 
 int main(int argc, char **argv)
 {
+
+	if (argc < 2) {
+		std::cout << "Need more arguments" << std::endl;
+		return 1;
+	}
 	std::vector<uint> unsorted;
 
 	try {
